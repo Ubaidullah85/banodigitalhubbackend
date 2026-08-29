@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { COURSE, GENDERS, STUDY_LEVELS } from '@/lib/config';
+import { apiFetch } from '@/lib/api';
 
 const EMPTY = {
   fullName: '',
@@ -55,7 +56,7 @@ export default function EnrollForm() {
     setError('');
     setSending(true);
     try {
-      const res = await fetch('/api/enroll', {
+      const res = await apiFetch('/api/enroll', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

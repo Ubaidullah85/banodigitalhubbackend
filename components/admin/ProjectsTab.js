@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { apiFetch } from '@/lib/api';
 
 const EMPTY = {
   title: '',
@@ -20,7 +21,7 @@ export default function ProjectsTab({ onAuthLost }) {
   const [msg, setMsg] = useState(null);
 
   const load = useCallback(async () => {
-    const res = await fetch('/api/admin/projects', { cache: 'no-store' });
+    const res = await apiFetch('/api/admin/projects', { cache: 'no-store' });
     if (res.status === 401) return onAuthLost();
     const data = await res.json();
     setProjects(data.projects || []);
@@ -47,7 +48,7 @@ export default function ProjectsTab({ onAuthLost }) {
     e.preventDefault();
     setBusy(true);
     try {
-      const res = await fetch('/api/admin/projects', {
+      const res = await apiFetch('/api/admin/projects', {
         method: editingId ? 'PATCH' : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -86,7 +87,7 @@ export default function ProjectsTab({ onAuthLost }) {
 
   const remove = async (p) => {
     if (!confirm(`Remove "${p.title}" from the home page carousel?`)) return;
-    const res = await fetch(`/api/admin/projects?id=${p._id}`, { method: 'DELETE' });
+    const res = await apiFetch(`/api/admin/projects?id=${p._id}`, { method: 'DELETE' });
     if (res.status === 401) return onAuthLost();
     say('ok', 'Project removed.');
     if (editingId === p._id) reset();
@@ -96,7 +97,7 @@ export default function ProjectsTab({ onAuthLost }) {
   const seed = async () => {
     setBusy(true);
     try {
-      const res = await fetch('/api/admin/projects', {
+      const res = await apiFetch('/api/admin/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ seed: true }),

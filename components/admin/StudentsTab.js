@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { COURSE } from '@/lib/config';
+import { apiFetch } from '@/lib/api';
 
 const STATUSES = ['new', 'contacted', 'shortlisted', 'enrolled', 'rejected'];
 
@@ -59,7 +60,7 @@ export default function StudentsTab({ onAuthLost }) {
         const params = new URLSearchParams();
         if (search) params.set('q', search);
         if (filter) params.set('status', filter);
-        const res = await fetch(`/api/admin/students?${params}`, { cache: 'no-store' });
+        const res = await apiFetch(`/api/admin/students?${params}`, { cache: 'no-store' });
 
         if (res.status === 401) return onAuthLost();
         const data = await res.json();
@@ -94,7 +95,7 @@ export default function StudentsTab({ onAuthLost }) {
 
   const patch = async (id, changes) => {
     setStudents((list) => list.map((s) => (s._id === id ? { ...s, ...changes } : s)));
-    const res = await fetch('/api/admin/students', {
+    const res = await apiFetch('/api/admin/students', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, ...changes }),
@@ -109,7 +110,7 @@ export default function StudentsTab({ onAuthLost }) {
   const remove = async (s) => {
     if (!confirm(`Delete the application of ${s.fullName}? This cannot be undone.`)) return;
     setStudents((list) => list.filter((x) => x._id !== s._id));
-    const res = await fetch(`/api/admin/students?id=${s._id}`, { method: 'DELETE' });
+    const res = await apiFetch(`/api/admin/students?id=${s._id}`, { method: 'DELETE' });
     if (res.status === 401) onAuthLost();
     else say('Application deleted.');
   };
@@ -118,7 +119,7 @@ export default function StudentsTab({ onAuthLost }) {
   const download = async (format) => {
     setExporting(format);
     try {
-      const res = await fetch(`/api/admin/export?format=${format}`, { cache: 'no-store' });
+      const res = await apiFetch(`/api/admin/export?format=${format}`, { cache: 'no-store' });
       if (res.status === 401) return onAuthLost();
       if (!res.ok) return say('Export failed.');
 
@@ -141,7 +142,7 @@ export default function StudentsTab({ onAuthLost }) {
 
   const loadStatus = useCallback(async () => {
     try {
-      const res = await fetch('/api/admin/status', { cache: 'no-store' });
+      const res = await apiFetch('/api/admin/status', { cache: 'no-store' });
       if (res.status === 401) return onAuthLost();
       setHealth(await res.json());
     } catch {
@@ -156,7 +157,7 @@ export default function StudentsTab({ onAuthLost }) {
   const sendTestEmail = async () => {
     setTesting(true);
     try {
-      const res = await fetch('/api/admin/status', { method: 'POST' });
+      const res = await apiFetch('/api/admin/status', { method: 'POST' });
       const data = await res.json().catch(() => ({}));
       say(res.ok ? `Test email sent to ${data.to}.` : data.error || 'Test email failed.');
     } finally {

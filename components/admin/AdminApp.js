@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import StudentsTab from './StudentsTab';
 import ProjectsTab from './ProjectsTab';
+import { apiFetch } from '@/lib/api';
 
 export default function AdminApp() {
   const [authed, setAuthed] = useState(null); // null = still checking
@@ -12,7 +13,7 @@ export default function AdminApp() {
   const [tab, setTab] = useState('students');
 
   useEffect(() => {
-    fetch('/api/admin/session', { cache: 'no-store' })
+    apiFetch('/api/admin/session', { cache: 'no-store' })
       .then((r) => r.json())
       .then((d) => setAuthed(Boolean(d.authed)))
       .catch(() => setAuthed(false));
@@ -28,7 +29,7 @@ export default function AdminApp() {
     setBusy(true);
     setError('');
     try {
-      const res = await fetch('/api/admin/login', {
+      const res = await apiFetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),
@@ -48,7 +49,7 @@ export default function AdminApp() {
   };
 
   const logout = async () => {
-    await fetch('/api/admin/logout', { method: 'POST' });
+    await apiFetch('/api/admin/logout', { method: 'POST' });
     setAuthed(false);
   };
 

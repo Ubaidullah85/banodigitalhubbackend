@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+.env
+.env.local
+.vercel
+.DS_Store
+*.log
+
+# stray duplicate download; the real file lives in public/
+AI-Web-Development-Course-Enrollment-Guide (1).pdf

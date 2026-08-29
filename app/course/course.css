@@ -1,0 +1,745 @@
+/* ==========================================================================
+   Course page — dark theme, matched to the home page (globals.css).
+   Mobile-first: base rules are the phone layout, `min-width` queries add the
+   larger ones. Every selector is prefixed `crs-` so nothing leaks out.
+   ========================================================================== */
+
+.crs-page {
+  --crs-bg: #000;
+  --crs-bg-soft: #080808;
+  --crs-brand: #4361ee;
+  --crs-brand-deep: #0033ff;
+  --crs-brand-lite: #4e8dff;
+
+  /* Content copy stays white — only tiny meta lines are dimmed. */
+  --crs-text: #fff;
+  --crs-meta: rgba(255, 255, 255, 0.6);
+
+  --crs-line: rgba(255, 255, 255, 0.1);
+  --crs-line-str: rgba(255, 255, 255, 0.16);
+  --crs-glass: rgba(255, 255, 255, 0.04);
+
+  --crs-r: 14px;
+  --crs-r-sm: 10px;
+  --crs-grad: linear-gradient(90deg, var(--crs-brand-deep), var(--crs-brand));
+
+  background: var(--crs-bg);
+  color: var(--crs-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Renders native controls (checkbox, select popup, scrollbars) dark. */
+  color-scheme: dark;
+}
+
+.crs-page ::selection {
+  background: rgba(67, 97, 238, 0.35);
+  color: #fff;
+}
+
+.crs-shell {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Course link in the shared navbar. */
+.crs-page .nav-links a.is-active,
+.crs-page .mobile-links a.is-active {
+  color: var(--crs-brand-lite);
+}
+
+.crs-page .nav-links a.is-active::after {
+  width: 100%;
+}
+
+/* ------------------------------------------------------------------ hero */
+.crs-hero {
+  position: relative;
+  padding: 128px 0 64px;
+  text-align: center;
+  background: radial-gradient(115% 65% at 50% -8%, rgba(67, 97, 238, 0.2), transparent 62%);
+}
+
+.crs-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: var(--crs-glass);
+  border: 1px solid var(--crs-line);
+  font-size: 0.79rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.crs-dot-live {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.crs-dot-live::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: crs-pulse 1.8s infinite;
+}
+
+@keyframes crs-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.crs-h1 {
+  margin: 24px auto 0;
+  max-width: 880px;
+  /* 5.9vw keeps the longest line (~25 chars) inside the shell on any phone,
+     so the headline stays exactly two lines from 320px up. */
+  font-size: clamp(1.05rem, 5.9vw, 2.9rem);
+  line-height: 1.18;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #fff;
+}
+
+.crs-h1-line {
+  display: block;
+}
+
+.crs-grad {
+  background: var(--crs-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.crs-lead {
+  margin: 20px auto 0;
+  max-width: 560px;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: #fff;
+}
+
+.crs-cta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.crs-trustrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.crs-trustrow span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.crs-trustrow i {
+  color: #22c55e;
+}
+
+/* On a phone only the start date is worth the vertical space. */
+.crs-trustrow .crs-trust-extra {
+  display: none;
+}
+
+/* --------------------------------------------------------------- buttons */
+.crs-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s, background 0.25s;
+}
+
+.crs-btn-primary {
+  background: var(--crs-grad);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 15px -3px rgba(0, 51, 255, 0.5);
+}
+
+.crs-btn-primary:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 22px -3px rgba(0, 51, 255, 0.7);
+  transform: translateY(-2px);
+}
+
+.crs-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.crs-btn-ghost {
+  background: transparent;
+  color: #fff;
+  border-color: var(--crs-line-str);
+}
+
+.crs-btn-ghost:hover {
+  border-color: var(--crs-brand-lite);
+  color: var(--crs-brand-lite);
+  transform: translateY(-2px);
+}
+
+/* -------------------------------------------------------------- sections */
+.crs-section {
+  padding: 64px 0;
+}
+
+.crs-section-alt {
+  background: var(--crs-bg-soft);
+  border-top: 1px solid var(--crs-line);
+  border-bottom: 1px solid var(--crs-line);
+}
+
+.crs-head {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.crs-eyebrow {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--crs-brand-lite);
+}
+
+.crs-h2 {
+  font-size: clamp(1.7rem, 6.2vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 14px 0 12px;
+  color: #fff;
+}
+
+.crs-sub {
+  max-width: 560px;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ----------------------------------------------------------------- steps */
+.crs-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.crs-step {
+  padding: 26px 24px;
+  border-radius: var(--crs-r);
+  background: var(--crs-glass);
+  border: 1px solid var(--crs-line);
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.crs-step:hover {
+  border-color: rgba(78, 141, 255, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.crs-step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--crs-grad);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.crs-step h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.crs-step p {
+  color: #fff;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* ------------------------------------------------------------------ form
+   Deliberately flat: one card, no inner boxes, no labels — the placeholder
+   is the label, so the eye follows a single clean column of inputs.        */
+.crs-formwrap {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--crs-glass);
+  border: 1px solid var(--crs-line);
+  border-radius: 16px;
+  padding: 24px 20px 26px;
+}
+
+.crs-formhead {
+  margin-bottom: 22px;
+}
+
+.crs-formhead h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.crs-formhead p {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--crs-meta);
+}
+
+.crs-grid2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.crs-field input[type='text'],
+.crs-field input[type='email'],
+.crs-field input[type='tel'],
+.crs-field input[type='number'],
+.crs-field select {
+  width: 100%;
+  height: 54px;
+  padding: 0 16px;
+  border-radius: var(--crs-r-sm);
+  border: 1px solid var(--crs-line-str);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Age is typed, not stepped. */
+.crs-field input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.crs-field input[type='number']::-webkit-outer-spin-button,
+.crs-field input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.crs-field select {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.6' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+  padding-right: 42px;
+  cursor: pointer;
+}
+
+/* Empty select shows its placeholder option, so dim it like a placeholder. */
+.crs-field select:invalid,
+.crs-field select[data-empty='true'] {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* The dropdown list is OS-drawn and needs its own dark colours. */
+.crs-field select option {
+  background: #0d0d0d;
+  color: #fff;
+}
+
+.crs-field input:hover,
+.crs-field select:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.crs-field input:focus,
+.crs-field select:focus {
+  outline: 0;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--crs-brand);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.22);
+}
+
+.crs-field input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* Chrome's yellow autofill wash would break the dark form. */
+.crs-field input:-webkit-autofill,
+.crs-field input:-webkit-autofill:hover,
+.crs-field input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.crs-check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 0 16px;
+  border: 1px solid var(--crs-line-str);
+  border-radius: var(--crs-r-sm);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.crs-check:hover {
+  border-color: rgba(78, 141, 255, 0.4);
+}
+
+.crs-check input {
+  width: 19px;
+  height: 19px;
+  accent-color: var(--crs-brand);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.crs-submit {
+  width: 100%;
+  margin-top: 18px;
+  height: 56px;
+  padding: 0;
+  font-size: 1.02rem;
+}
+
+.crs-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 13px 15px;
+  border-radius: var(--crs-r-sm);
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.crs-privacy i {
+  margin-right: 6px;
+}
+
+.crs-privacy {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.83rem;
+  color: var(--crs-meta);
+}
+
+/* --------------------------------------------------------------- success */
+.crs-success {
+  text-align: center;
+  padding: 12px 0 4px;
+}
+
+.crs-success-icon {
+  width: 66px;
+  height: 66px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(34, 197, 94, 0.14);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #22c55e;
+  font-size: 1.8rem;
+}
+
+.crs-success h3 {
+  font-size: clamp(1.35rem, 5.5vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.crs-success > p {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.crs-success strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* The "check your email, then wait for 3 Sep" line is the whole point of
+   this screen, so it is the one element that gets emphasis. */
+.crs-mailnote {
+  margin: 22px auto 0;
+  max-width: 520px;
+  /* left-aligned: it is a paragraph of instructions, not a headline */
+  text-align: left;
+  padding: 20px;
+  border-radius: var(--crs-r);
+  background: linear-gradient(135deg, rgba(0, 51, 255, 0.22), rgba(67, 97, 238, 0.08));
+  border: 1px solid rgba(78, 141, 255, 0.4);
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.crs-mailnote i {
+  color: var(--crs-brand-lite);
+  margin-right: 8px;
+}
+
+.crs-spam {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--crs-meta);
+}
+
+.crs-success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* ------------------------------------------------------------------- faq */
+.crs-faq {
+  max-width: 720px;
+  margin: 0 auto;
+  display: grid;
+  gap: 10px;
+}
+
+.crs-faq details {
+  background: var(--crs-glass);
+  border: 1px solid var(--crs-line);
+  border-radius: var(--crs-r);
+  padding: 16px 18px;
+  transition: border-color 0.2s;
+}
+
+.crs-faq details[open] {
+  border-color: rgba(78, 141, 255, 0.35);
+}
+
+.crs-faq summary {
+  cursor: pointer;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #fff;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.crs-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.crs-faq summary::after {
+  content: '+';
+  color: var(--crs-brand-lite);
+  font-size: 1.4rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.crs-faq details[open] summary::after {
+  content: '\2212';
+}
+
+.crs-faq p {
+  margin-top: 11px;
+  color: #fff;
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   Larger screens
+   ========================================================================== */
+
+@media (min-width: 560px) {
+  .crs-cta-row,
+  .crs-success-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .crs-trustrow {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 26px;
+  }
+  .crs-trustrow .crs-trust-extra {
+    display: inline-flex;
+  }
+  .crs-formwrap {
+    padding: 30px 28px 32px;
+  }
+  .crs-grid2 {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .crs-span2 {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 900px) {
+  .crs-hero {
+    padding: 180px 0 84px;
+  }
+  .crs-section {
+    padding: 88px 0;
+  }
+  .crs-head {
+    margin-bottom: 48px;
+  }
+  .crs-lead,
+  .crs-sub {
+    font-size: 1.08rem;
+  }
+  .crs-steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .crs-step {
+    padding: 30px 28px;
+  }
+  .crs-formwrap {
+    padding: 36px 36px 38px;
+  }
+}
+
+
+/* ==========================================================================
+   Entrance motion
+   Everything here is gated on `.crs-anim`, which components/CourseMotion.js
+   adds on mount — without JavaScript nothing is ever hidden.
+   ========================================================================== */
+@keyframes crs-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- hero: plays once on load, cascading down the column --- */
+.crs-anim .crs-badge,
+.crs-anim .crs-h1-line,
+.crs-anim .crs-lead,
+.crs-anim .crs-cta-row,
+.crs-anim .crs-trustrow {
+  animation: crs-rise 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.crs-anim .crs-badge {
+  animation-delay: 0.05s;
+}
+.crs-anim .crs-h1-line:first-child {
+  animation-delay: 0.16s;
+}
+.crs-anim .crs-h1-line + .crs-h1-line {
+  animation-delay: 0.28s;
+}
+.crs-anim .crs-lead {
+  animation-delay: 0.42s;
+}
+.crs-anim .crs-cta-row {
+  animation-delay: 0.54s;
+}
+.crs-anim .crs-trustrow {
+  animation-delay: 0.66s;
+}
+
+/* --- everything below the fold: fades and rises as it is scrolled to --- */
+.crs-anim [data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* --crs-d is the element's index in its group, so a row of cards arrives
+     one after another instead of all at once. */
+  transition-delay: calc(var(--crs-d, 0) * 90ms);
+}
+
+.crs-anim [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Respect the OS "reduce motion" setting. */
+@media (prefers-reduced-motion: reduce) {
+  .crs-page *,
+  .crs-page *::before,
+  .crs-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .crs-anim [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

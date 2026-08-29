@@ -1,0 +1,920 @@
+/* ==========================================================================
+   Admin panel.
+
+   Same language as the mail: warm paper, ink, hairlines and one bronze accent.
+   No blue, no gradients, no drop shadows — weight and spacing do the work, so
+   the panel reads like an instrument rather than a template. Every selector is
+   prefixed `adm-` so none of it collides with the public site in globals.css.
+   ========================================================================== */
+
+.adm {
+  --paper: #f4f2ee;
+  --surface: #ffffff;
+  --ink: #1a1815;
+  --body: #4f4c46;
+  --muted: #8b867d;
+  --line: #e3ded5;
+  --line-soft: #efebe3;
+  --accent: #8a6a45;
+  --accent-soft: #f6f1e9;
+  --ok: #3f6b4a;
+  --warn: #8a6520;
+  --err: #9b3535;
+
+  --serif: Georgia, 'Times New Roman', Times, serif;
+
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body:has(.adm) {
+  background: var(--paper);
+}
+
+.adm *,
+.adm *::before,
+.adm *::after {
+  box-sizing: border-box;
+}
+
+.adm-shell {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 28px 26px 90px;
+}
+
+/* Small-caps label, used above every block. The one bronze thing on screen. */
+.adm-eyebrow {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ----------------------------------------------------------------- login */
+.adm-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--paper);
+}
+
+.adm-login-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 44px 38px 38px;
+  text-align: center;
+}
+
+.adm-login-card .adm-mark {
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+}
+
+.adm-login-card h1 {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.adm-login-card p {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin: 0 0 28px;
+}
+
+.adm-login-card::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+  margin: 26px auto 0;
+}
+
+/* ---------------------------------------------------------------- header */
+.adm-top {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.adm-top-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 26px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  min-height: 66px;
+  flex-wrap: wrap;
+}
+
+.adm-brandline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-right: auto;
+  color: var(--ink);
+}
+
+.adm-brandline .adm-mark {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* Tabs are underlined words, not pills. */
+.adm-tabs {
+  display: flex;
+  gap: 26px;
+  align-self: stretch;
+}
+
+.adm-tabs button {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 0 1px;
+  margin-bottom: -1px;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  transition: color 0.18s;
+}
+
+.adm-tabs button i {
+  font-size: 0.82rem;
+  opacity: 0.75;
+}
+
+.adm-tabs button:hover {
+  color: var(--ink);
+}
+
+.adm-tabs button.on {
+  color: var(--ink);
+  font-weight: 600;
+  border-bottom-color: var(--accent);
+}
+
+/* --------------------------------------------------------------- buttons */
+.adm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 17px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.2;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.18s, background 0.18s, color 0.18s;
+}
+
+.adm-btn i {
+  font-size: 0.82rem;
+  opacity: 0.8;
+}
+
+.adm-btn:hover {
+  border-color: var(--ink);
+}
+
+.adm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.adm-btn:disabled:hover {
+  border-color: var(--line);
+}
+
+.adm-btn-primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.adm-btn-primary:hover {
+  background: #000;
+  border-color: #000;
+}
+
+.adm-btn-primary:disabled:hover {
+  background: var(--ink);
+}
+
+.adm-btn-wide {
+  width: 100%;
+}
+
+.adm-btn-sm {
+  padding: 7px 13px;
+  font-size: 0.79rem;
+}
+
+.adm-btn-icon {
+  padding: 9px 11px;
+  color: var(--muted);
+}
+
+.adm-btn-icon i {
+  font-size: 0.8rem;
+}
+
+.adm-btn-icon:hover {
+  color: var(--err);
+  border-color: var(--err);
+}
+
+/* The reach-out actions stay quiet; only their hover state names them. */
+.adm-btn-wa:hover {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+.adm-btn-mail:hover,
+.adm-btn-excel:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ----------------------------------------------------------------- stats */
+.adm-stats {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  margin: 0 0 22px;
+}
+
+.adm-stat {
+  padding: 20px 20px 18px;
+  border-right: 1px solid var(--line-soft);
+}
+
+.adm-stat:last-child {
+  border-right: 0;
+}
+
+.adm-stat b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.adm-stat span {
+  display: block;
+  margin-top: 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.adm-stat.hl b {
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------------- health */
+.adm-health {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+  padding: 14px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 0;
+  margin: -22px 0 22px;
+}
+
+.adm-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.82rem;
+  color: var(--body);
+}
+
+.adm-chip i {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.adm-chip::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--muted);
+  flex: 0 0 auto;
+}
+
+.adm-chip.ok::before {
+  background: var(--ok);
+}
+
+.adm-chip.bad::before {
+  background: var(--err);
+}
+
+.adm-chip.warn::before {
+  background: var(--warn);
+}
+
+.adm-health .adm-btn-sm {
+  margin-left: auto;
+}
+
+/* --------------------------------------------------------------- toolbar */
+.adm-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 18px;
+  align-items: center;
+}
+
+.adm-toolbar .adm-btn-excel {
+  margin-left: auto;
+}
+
+.adm-search {
+  position: relative;
+  flex: 1 1 280px;
+  max-width: 440px;
+  min-width: 200px;
+}
+
+.adm-search i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 0.8rem;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------ form fields */
+.adm input[type='text'],
+.adm input[type='password'],
+.adm input[type='number'],
+.adm select,
+.adm textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  transition: border-color 0.18s;
+}
+
+.adm input::placeholder,
+.adm textarea::placeholder {
+  color: #b3aca1;
+}
+
+.adm-search input {
+  padding-left: 38px !important;
+}
+
+.adm input:focus,
+.adm select:focus,
+.adm textarea:focus {
+  outline: 0;
+  border-color: var(--ink);
+}
+
+.adm .adm-filter {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 170px;
+}
+
+/* ----------------------------------------------------------------- table */
+.adm-tablecard {
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.adm-scroll {
+  overflow-x: auto;
+}
+
+.adm-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1080px;
+}
+
+.adm-table th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.adm-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: middle;
+  font-size: 0.88rem;
+  color: var(--body);
+}
+
+.adm-table tr:last-child td {
+  border-bottom: 0;
+}
+
+/* A CNIC or a date reads as one token — never break it across two lines. */
+.adm-table td[data-label='CNIC'],
+.adm-table td[data-label='Laptop'] {
+  white-space: nowrap;
+}
+
+.adm-table tbody tr:hover {
+  background: #faf8f4;
+}
+
+.adm-name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.94rem;
+  color: var(--ink);
+}
+
+.adm-sub {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.adm-copy {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.adm-copy:hover {
+  color: var(--accent);
+}
+
+.adm-actions {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+/* Laptop yes/no — a word with a rule under it, not a coloured bubble. */
+.adm-pill {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+
+.adm-pill.no {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.adm-status {
+  padding: 8px 12px !important;
+  font-size: 0.82rem !important;
+  font-weight: 500;
+  min-width: 138px;
+  cursor: pointer;
+  color: var(--body) !important;
+}
+
+/* The status is carried by a leading rule, so the select stays plain. */
+.adm-status[data-v='contacted'],
+.adm-status[data-v='shortlisted'] {
+  border-left: 2px solid var(--accent);
+}
+
+.adm-status[data-v='enrolled'] {
+  border-left: 2px solid var(--ok);
+  color: var(--ink) !important;
+  font-weight: 600;
+}
+
+.adm-status[data-v='rejected'] {
+  border-left: 2px solid var(--err);
+}
+
+/* --------------------------------------------------------------- notices */
+.adm-empty {
+  padding: 72px 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.adm-empty i {
+  font-size: 1.6rem;
+  color: #cec7ba;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.adm-note {
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-left-width: 2px;
+  background: var(--surface);
+  font-size: 0.88rem;
+  margin-bottom: 16px;
+  line-height: 1.7;
+  color: var(--body);
+}
+
+.adm-note.warn {
+  border-left-color: var(--warn);
+}
+
+.adm-note.err {
+  border-left-color: var(--err);
+}
+
+.adm-note.ok {
+  border-left-color: var(--ok);
+}
+
+/* -------------------------------------------------------------- projects */
+.adm-proj-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 370px) 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.adm-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 26px 24px;
+}
+
+.adm-card h2 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 0 0 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.adm-field {
+  margin-bottom: 16px;
+}
+
+.adm-field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+.adm-field textarea {
+  min-height: 96px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.adm-sectionhead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.adm-sectionhead h2 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.adm-sectionhead p {
+  margin: 5px 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.adm-projlist {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.adm-projrow {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  padding: 18px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.adm-projrow:last-child {
+  border-bottom: 0;
+}
+
+.adm-projrow img {
+  width: 92px;
+  height: 64px;
+  object-fit: cover;
+  flex: 0 0 auto;
+  background: var(--paper);
+  border: 1px solid var(--line-soft);
+}
+
+.adm-projrow .adm-projmeta {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.adm-projrow h3 {
+  font-size: 0.98rem;
+  font-weight: 600;
+  margin: 0 0 5px;
+  color: var(--ink);
+}
+
+.adm-projrow p {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.adm-tagline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 9px;
+}
+
+.adm-tagline span {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------ responsive */
+@media (max-width: 1100px) {
+  .adm-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .adm-stat:nth-child(3n) {
+    border-right: 0;
+  }
+
+  .adm-stat:nth-child(-n + 3) {
+    border-bottom: 1px solid var(--line-soft);
+  }
+}
+
+@media (max-width: 940px) {
+  .adm-proj-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Below this the table becomes a list of records — one card per student, each
+   value labelled, so nothing has to be scrolled sideways on a phone. */
+@media (max-width: 860px) {
+  .adm-shell {
+    padding: 20px 16px 80px;
+  }
+
+  .adm-top-inner {
+    padding: 12px 16px;
+    gap: 14px 20px;
+    min-height: 0;
+  }
+
+  .adm-tabs {
+    order: 3;
+    width: 100%;
+    gap: 22px;
+    border-top: 1px solid var(--line-soft);
+    padding-top: 10px;
+  }
+
+  .adm-health .adm-btn-sm {
+    margin-left: 0;
+  }
+
+  .adm-table,
+  .adm-table tbody,
+  .adm-table tr,
+  .adm-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .adm-table {
+    min-width: 0;
+  }
+
+  .adm-table thead {
+    display: none;
+  }
+
+  .adm-table tr {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .adm-table tr:last-child {
+    border-bottom: 0;
+  }
+
+  .adm-table td {
+    padding: 7px 0;
+    border: 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 18px;
+    text-align: right;
+  }
+
+  .adm-table td::before {
+    content: attr(data-label);
+    flex: 0 0 auto;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+  }
+
+  .adm-table td[data-label='']::before {
+    display: none;
+  }
+
+  /* The delete control has no label, so it tucks under the reach-out row. */
+  .adm-table td[data-label=''] {
+    justify-content: flex-end;
+    padding-top: 0;
+  }
+
+  .adm-table td[data-label='Student'] {
+    display: block;
+    text-align: left;
+    padding-bottom: 12px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .adm-table td[data-label='Student']::before {
+    display: none;
+  }
+
+  .adm-table td[data-label='Contact'] {
+    display: block;
+    text-align: left;
+  }
+
+  .adm-table td[data-label='Contact']::before {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .adm-actions {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .adm-projrow {
+    flex-wrap: wrap;
+  }
+
+  .adm-projrow .adm-projmeta {
+    flex: 1 1 200px;
+  }
+}
+
+@media (max-width: 620px) {
+  .adm-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .adm-stat {
+    padding: 16px;
+  }
+
+  .adm-stat:nth-child(3n) {
+    border-right: 1px solid var(--line-soft);
+  }
+
+  .adm-stat:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .adm-stat:nth-child(-n + 4) {
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .adm-stat b {
+    font-size: 1.6rem;
+  }
+
+  .adm-toolbar .adm-btn,
+  .adm-filter {
+    flex: 1 1 auto;
+  }
+
+  .adm-search {
+    flex: 1 1 100%;
+  }
+
+  .adm-login-card {
+    padding: 34px 24px 30px;
+  }
+}

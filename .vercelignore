@@ -1,0 +1,10 @@
+# Secrets belong in Vercel's encrypted environment store, never inside the
+# deployment bundle. Without this the CLI uploads .env with the build.
+.env
+.env.*
+!.env.example
+
+node_modules
+.next
+legacy
+*.log
